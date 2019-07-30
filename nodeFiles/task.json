@@ -1,0 +1,30 @@
+{
+  "id": "1943565d-795d-47bc-9087-349f45dd4e16",
+  "name": "buildTask",
+  "friendlyName": "Build Task Example",
+  "description": "Build Task Example for Azure DevOps",
+  "helpMarkDown": "",
+  "category": "Utility",
+  "author": "Stanislav Parkhomenko",
+  "version": {
+    "Major": 0,
+    "Minor": 1,
+    "Patch": 0
+  },
+  "instanceNameFormat": "Echo $(samplefield)",
+  "inputs": [
+    {
+      "name": "samplefield",
+      "type": "string",
+      "label": "Sample Field",
+      "defaultValue": "",
+      "required": true,
+      "helpMarkDown": "A sample field"
+    }
+  ],
+  "execution": {
+    "Node": {
+      "target": "index.js"
+    }
+  }
+}
