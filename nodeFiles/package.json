@@ -9,9 +9,9 @@
   "author": "Stanislav Parkhomenko",
   "license": "ISC",
   "dependencies": {
-    "azure-devops-extension-api": "^1.154.1",
-    "azure-devops-extension-sdk": "^2.0.11",
-    "azure-pipelines-task-lib": "^2.8.0"
+    "azure-devops-node-api": "^9.0.1",
+    "azure-pipelines-task-lib": "^2.8.0",
+    "vso-node-api": "^6.5.0"
   },
   "devDependencies": {
     "@types/node": "^12.6.8",

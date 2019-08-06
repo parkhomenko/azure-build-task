@@ -1,17 +1,38 @@
 import tl = require('azure-pipelines-task-lib/task');
-import * as SDK from 'azure-devops-extension-sdk';
-import {CommonServiceIds, IExtensionDataService} from "azure-devops-extension-api";
+import * as azdev from "azure-devops-node-api";
 
 async function run() {
-    const extensionId = SDK.getExtensionContext().extensionId;
-    const accessToken = await SDK.getAccessToken();
-    const dataService = await SDK.getService<IExtensionDataService>(CommonServiceIds.ExtensionDataService);
-    const manager = await dataService.getExtensionDataManager(extensionId, accessToken);
-    const document = await manager.getDocument('MyCollection', 'MyDocument');
+    const organizationUrl = tl.getVariable('System.TeamFoundationCollectionUri');
+    const token = tl.getVariable('System.AccessToken');
+    const azDevConnection = azdev.WebApi.createWithBearerToken(organizationUrl, token);
+    
+    const eManager = await azDevConnection.getExtensionManagementApi();
+    
+    // Getting a document from collection
+    const document = await eManager.getDocumentByName(
+      'StanislavParkhomenko', // is there a way to get a publisher?
+      'build-release-task', // is there a way to get an extension id?
+      'Default',
+      'Current',
+      'MyCollection',
+      'MyDocument'
+    );
+    
+    // Changing a value in the document
     document.action = 'hello world - pipeline';
-    manager.updateDocument('MyCollection', document).then(function (doc) {
+    
+    // Update a document
+    eManager.updateDocumentByName(
+      document,
+      'StanislavParkhomenko', // is there a way to get a publisher?
+      'build-release-task', // is there a way to get an extension id?
+      'Default',
+      'Current',
+      'MyCollection'
+    ).then(function (doc) {
         console.log(`Doc version: ${doc.__etag}`);
     });
+    
     tl.setResult(tl.TaskResult.Succeeded, "Build passed successfully");
 }
 
