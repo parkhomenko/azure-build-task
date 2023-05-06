@@ -10,7 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "azure-devops-node-api": "^9.0.1",
-    "azure-pipelines-task-lib": "^2.8.0",
+    "azure-pipelines-task-lib": "^4.3.1",
     "vso-node-api": "^6.5.0"
   },
   "devDependencies": {
